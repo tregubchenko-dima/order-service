@@ -9,72 +9,28 @@ tags:
   - name: templates
     description: Everything about template
 paths:
-  /v1/templates:
-    get:
+  /v1/orders:
+    post:
       tags:
-        - templates
-      summary: Get template info
-      description: Get template info
-      operationId: getTemplate
+        - orders
+      operationId: createOrder
+      summary: Создать новый заказ
+      description: Создаёт новый заказ с заданными параметрами.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OrderCreateRequest'
       responses:
         '200':
           description: Successful operation
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/TemplateResponseList'
+                $ref: '#/components/schemas/OrderCreateResponse'
         '400':
           description: Invalid request
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Error"
-        '404':
-          description: Template not found
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Error"
-        '422':
-          description: Validation exception
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Error"
-        default:
-          description: Unexpected error
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Error"
-  /v1/kafka:
-    get:
-      tags:
-        - kafka
-      summary: Send kafka
-      description: Send kafka
-      operationId: sendKafka
-      responses:
-        '200':
-          description: Successful operation
-          content:
-            application/json:
-              schema:
-                type: string
-        '400':
-          description: Invalid request
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Error"
-        '404':
-          description: Template not found
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Error"
-        '422':
-          description: Validation exception
           content:
             application/json:
               schema:
@@ -96,26 +52,31 @@ components:
         description:
           type: string
           example: "Error description example"
-    TemplateResponseList:
+    OrderCreateRequest:
       type: object
+      required:
+        - name
       properties:
-        templates:
-          type: array
-          items:
-            $ref: "#/components/schemas/TemplateCommon"
-    TemplateCommon:
-      type: object
-      properties:
-        value:
+        name:
           type: string
-          example: "value example"
+          description: Название заказа
+          example: "Новый заказ"
+        price:
+          type: integer
+          description: Цена
+          example: 1000
+    OrderCreateResponse:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: Уникальный идентификатор заказа
+          example: "3fa85f64-5717-4562-b3fc-2c963f66afa6"
+        name:
+          type: string
+        status:
+          type: string
         date:
           type: string
           format: date
-          example: "2022-01-30"
-        status:
-          type: string
-          enum:
-            - PROCESSING
-            - SUCCESS
-            - FAILED

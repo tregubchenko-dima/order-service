@@ -16,3 +16,7 @@ spring:
     enabled: true
   kafka:
     bootstrap-servers: localhost:9092
+    services:
+      product:
+        topic:
+          command: product-command-topic

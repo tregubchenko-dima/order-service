@@ -30,7 +30,7 @@ dependencies {
     implementation("org.springframework:spring-aspects")
     implementation("org.springframework.boot:spring-boot-starter-aop")
     implementation("io.swagger.core.v3:swagger-annotations:2.2.30")
-    implementation("com.fasterxml.jackson.core:jackson-databind:2.19.0")
+    implementation("com.fasterxml.jackson.core:jackson-databind:2.16.2")
     implementation("org.openapitools:jackson-databind-nullable:0.2.6")
     implementation("jakarta.validation:jakarta.validation-api:3.1.1")
     implementation("javax.annotation:javax.annotation-api:1.3.2")
