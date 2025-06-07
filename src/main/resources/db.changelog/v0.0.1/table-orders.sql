@@ -1,14 +1,14 @@
 --liquibase formatted sql
 --changeset tregubchenko:initial
 
-create table if not exists template (
+create table if not exists orders (
     id          UUID,
     name        varchar,
-    value       integer,
+    price       integer,
     status      varchar,
     date        date,
     version     bigint      default 0,
-    constraint pk_template primary key (id)
+    constraint pk_orders primary key (id)
 );
 
---rollback drop table if not exists template cascade;
+--rollback drop table if not exists orders cascade;

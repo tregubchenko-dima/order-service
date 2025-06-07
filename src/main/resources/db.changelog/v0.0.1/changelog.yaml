@@ -1,4 +1,7 @@
 databaseChangeLog:
   - include:
-      file: table-template.sql
+      file: table-orders.sql
+      relativeToChangelogFile: true
+  - include:
+      file: table-orders_history.sql
       relativeToChangelogFile: true
