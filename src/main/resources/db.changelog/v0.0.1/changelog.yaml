@@ -2,6 +2,3 @@ databaseChangeLog:
   - include:
       file: table-template.sql
       relativeToChangelogFile: true
-  - include:
-      file: table-template_02.sql
-      relativeToChangelogFile: true
