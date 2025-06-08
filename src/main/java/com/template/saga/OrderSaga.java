@@ -48,7 +48,7 @@ public class OrderSaga {
                 } catch (Exception e) {
                     throw new RuntimeException(e);
                 }
-            } else if (new String(header.value()).equals("PaymentCancelledEvent")) {
+            } else if (new String(header.value()).equals("PaymentCanceledEvent")) {
                 try {
                     var paymentCanceledEvent = objectMapper.readValue(event.value(), PaymentCanceledEvent.class);
                     paymentHandler.handleError(paymentCanceledEvent);
