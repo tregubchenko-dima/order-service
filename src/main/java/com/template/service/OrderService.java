@@ -11,6 +11,8 @@ import org.openapi.template.model.OrderCreateRequest;
 import org.openapi.template.model.OrderCreateResponse;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.kafka.core.KafkaTemplate;
+import org.springframework.kafka.support.KafkaHeaders;
+import org.springframework.messaging.support.MessageBuilder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -22,6 +24,8 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @RequiredArgsConstructor
 public class OrderService {
+
+    private static final String COMMAND_HEADER_NAME = "command";
 
     private final OrderMapper orderMapper;
     private final ObjectMapper objectMapper;
@@ -41,9 +45,15 @@ public class OrderService {
         orderHistoryRepository.save(orderHistoryMapper.toOrderHistoryEntity(orderEntity));
 
         try {
-            kafkaTemplate.send(productServiceCommandTopic, objectMapper.writeValueAsString(orderMapper.toOrderBookedEvent(orderEntity)));
+            kafkaTemplate.send(
+                    MessageBuilder.withPayload(objectMapper.writeValueAsString(orderMapper.toOrderBookedEvent(orderEntity)))
+                            .setHeader(KafkaHeaders.TOPIC, productServiceCommandTopic)
+                            .setHeader(COMMAND_HEADER_NAME, "OrderBookedEvent")
+                            .build()
+            );
         } catch (Exception e) {
             log.info("Ошибки при сериализации");
+            throw new RuntimeException();
         }
 
         return orderMapper.toOrderCreateResponse(orderEntity);
