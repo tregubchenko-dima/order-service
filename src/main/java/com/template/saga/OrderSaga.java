@@ -34,7 +34,7 @@ public class OrderSaga {
                 } catch (Exception e) {
                     throw new RuntimeException(e);
                 }
-            } else if (new String(header.value()).equals("ProductCancelledEvent")) {
+            } else if (new String(header.value()).equals("ProductCanceledEvent")) {
                 try {
                     var productCanceledEvent = objectMapper.readValue(event.value(), ProductCanceledEvent.class);
                     productHandler.handleError(productCanceledEvent);
