@@ -7,12 +7,16 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDate;
+import java.util.UUID;
 
 @Entity
 @Getter
 @Setter
 @Table(name = "orders_history")
 public class OrderHistoryEntity extends BaseEntity {
+
+    @Column(name = "order_id")
+    private UUID orderId;
 
     @Column(name = "name")
     private String name;

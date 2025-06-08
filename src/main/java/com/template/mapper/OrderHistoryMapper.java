@@ -10,6 +10,7 @@ public interface OrderHistoryMapper {
 
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "version", ignore = true)
+    @Mapping(target = "orderId", source = "orderEntity.id")
     @Mapping(target = "name", source = "orderEntity.name")
     @Mapping(target = "price", source = "orderEntity.price")
     @Mapping(target = "status", source = "orderEntity.status")

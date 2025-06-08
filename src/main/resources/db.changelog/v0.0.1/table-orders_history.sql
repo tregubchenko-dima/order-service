@@ -3,6 +3,7 @@
 
 create table if not exists orders_history (
      id          UUID,
+     order_id    UUID,
      name        varchar,
      price       integer,
      status      varchar,
