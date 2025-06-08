@@ -20,8 +20,8 @@ spring:
       topic: order-command-topic
     services:
       product:
-        topic:
-          command: product-command-topic
+        command:
+          topic: product-command-topic
       payment:
         command:
           topic: payment-command-topic

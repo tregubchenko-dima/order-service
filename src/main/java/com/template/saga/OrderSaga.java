@@ -27,28 +27,28 @@ public class OrderSaga {
     public void consume(ConsumerRecord<String, String> event) {
         var header = event.headers().lastHeader("command");
         if (header != null) {
-            if (String.valueOf(header.value()).equals("ProductTookEvent")) {
+            if (new String(header.value()).equals("ProductTookEvent")) {
                 try {
                     var productTookEvent = objectMapper.readValue(event.value(), ProductTookEvent.class);
                     productHandler.handleSuccess(productTookEvent);
                 } catch (Exception e) {
                     throw new RuntimeException(e);
                 }
-            } else if (String.valueOf(header.value()).equals("ProductCancelledEvent")) {
+            } else if (new String(header.value()).equals("ProductCancelledEvent")) {
                 try {
                     var productCanceledEvent = objectMapper.readValue(event.value(), ProductCanceledEvent.class);
                     productHandler.handleError(productCanceledEvent);
                 } catch (Exception e) {
                     throw new RuntimeException(e);
                 }
-            } else if (String.valueOf(header.value()).equals("PaymentDoneEvent")) {
+            } else if (new String(header.value()).equals("PaymentDoneEvent")) {
                 try {
                     var paymentDoneEvent = objectMapper.readValue(event.value(), PaymentDoneEvent.class);
                     paymentHandler.handleSuccess(paymentDoneEvent);
                 } catch (Exception e) {
                     throw new RuntimeException(e);
                 }
-            } else if (String.valueOf(header.value()).equals("PaymentCancelledEvent")) {
+            } else if (new String(header.value()).equals("PaymentCancelledEvent")) {
                 try {
                     var paymentCanceledEvent = objectMapper.readValue(event.value(), PaymentCanceledEvent.class);
                     paymentHandler.handleError(paymentCanceledEvent);

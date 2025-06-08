@@ -34,7 +34,7 @@ public class OrderService {
     private final OrderHistoryRepository orderHistoryRepository;
     private final KafkaTemplate<String, String> kafkaTemplate;
 
-    @Value("${spring.kafka.services.product.topic.command}")
+    @Value("${spring.kafka.services.product.command.topic}")
     private String productServiceCommandTopic;
 
     @Transactional
